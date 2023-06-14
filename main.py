@@ -19,9 +19,13 @@ def validation_exception_handler(request, err):
     base_error_message = f"Failed to execute: {request.method}: {request.url}"
     return JSONResponse(status_code=400, content={"message": f"{base_error_message}. Detail: {err}"})
 
+@router.get('/',tags=["Root"])
+def root():
+    return {'Message': 'Simple E-commerce API to assist in Future Projects'}
+
+
 
 # Routes For Products   
-
 
 @router.post('/products', tags=["Products"],response_model=schemas.Product,status_code=201)
 async def create_item(product_request: schemas.ProductCreate, db: Session = Depends(get_db)):
@@ -74,7 +78,6 @@ async def update_item(id: int,product_request: schemas.Product, db: Session = De
     
 # Routes For Categories   
     
-   
 @router.post('/category', tags=["Categories"],response_model=schemas.Category,status_code=201)
 async def create_category(category_request: schemas.CategoryCreate, db: Session = Depends(get_db)):
     db_category = CategoryController.get_by_name(db, name=category_request.name)
