@@ -1,11 +1,10 @@
 from typing import List, Optional
-
 from pydantic import BaseModel
 
 
 class ProductBase(BaseModel):
     name: str
-    price : float
+    price: float
     description: Optional[str] = None
     category_id: int
 
@@ -16,9 +15,9 @@ class Product(ProductBase):
     class Config:
         orm_mode = True
 
+
 class ProductCreate(ProductBase):
     pass
-
 
 
 class CategoryBase(BaseModel):
@@ -31,6 +30,7 @@ class Category(CategoryBase):
 
     class Config:
         orm_mode = True
-        
+
+
 class CategoryCreate(CategoryBase):
     pass
